@@ -25,7 +25,7 @@ $cli = new Cli;
 print_r($cli->getArgs());
 ```
 
-Run our `app` file:
+Run  `app` file in Terminal:
 ```bash
 $ php app --data "hello world" --save "./path/to/file.txt" -o --append -val="test" --some="spaces here" lonely
 ```
@@ -44,6 +44,8 @@ Array
 )
 ```
 
+Colorize text output:
+
 ```php
 use Clify\Cli;
 
@@ -55,6 +57,8 @@ echo Cli::colorize("{black}{bg:yellow} Black text on Yellow background{reset}");
 // At the end, it will automatically add {reset}
 echo Cli::colorizeLine("{blue}Blue text");
 ```
+
+Terminal output (with new line):
 
 ```php
 use Clify\Cli;
