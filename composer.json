@@ -1,0 +1,24 @@
+{
+    "name": "chipslays/clify",
+    "description": "Developing CLI applications in PHP.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["cli", "application"],
+    "authors": [
+        {
+            "name": "chipslays",
+            "email": "hello@chipslays.ru"
+        }
+    ],
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Clify\\": "src/"
+        },
+        "files": ["src/Helpers.php"]
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}
