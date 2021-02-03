@@ -13,12 +13,24 @@ class Cli
         $this->args = self::parse($arguments);
     }
 
+    /**
+     * Get array with parsed args.
+     *
+     * @return array
+     */
     public function getArgs() 
     {
         return $this->args;
     }
 
+    /**
+     * Parse aguments to array.
+     *
+     * @param array $arguments
+     * @return array
+     */
     public static function parse(array $arguments = null) {
+        // TODO должен быть парс из массива $argv или из строки
         $args = is_array($arguments) ? $arguments : (is_null($arguments) ? $_SERVER['argv'] : explode(' ', $arguments));
     
         if (!is_array($arguments)) {
@@ -29,7 +41,7 @@ class Cli
 
         foreach ($args as $arg) {
             // FIXME придумать что делать с кавычками если данные передаются из обычного массива/строки
-            // $arg = str_replace('"', '', $arg);
+            $arg = str_replace(['"', '"'], '', $arg);
 
             if (self::isArgument($arg)) {
                 self::$nextArgumentShouldBeValue = false;
@@ -62,18 +74,56 @@ class Cli
         return $result;
     }
     
+    /**
+     * Check chunk of string for argument.
+     *
+     * @param string|int $str
+     * @return boolean
+     */
     public static function isArgument($str) {
         return mb_substr($str, 0, 1) == '-';
     }
 
-    public static function out($text = '')
+    /**
+     * Print text with auto new-line.
+     *
+     * @param string|int $text
+     * @return void
+     */
+    public static function print($text = '')
     {
         echo self::colorizeLine($text) . PHP_EOL;
     }
 
+    /**
+     * Ask and get answer.
+     * 
+     * @param string|int $text,
+     * @param array $variants
+     * @return string
+     */
+    public static function ask($text, $variants = ['Y', 'n']) 
+    {
+        echo self::colorizeLine($text . ' {yellow}[' . implode('/', $variants) . ']{reset}: ');
+        return rtrim(fgets(STDIN), "\n");
+    }
+
+    /**
+     * Colorize text and reset on end.
+     *
+     * @param string|int $text
+     * @return string
+     */
     public static function colorizeLine($text = '') {
         return self::colorize($text . '{reset}');
     }
+
+    /**
+     * Colorize text.
+     *
+     * @param string|int $text
+     * @return void
+     */
     public static function colorize($text = '')
     {
         $list = [
@@ -109,6 +159,12 @@ class Cli
         return strtr($text, $list);
     }
 
+    /**
+     * Parse string with arguments.
+     *
+     * @param string $arg
+     * @return array
+     */
     public static function parseArgument($arg)
     {
         $key = ltrim($arg, '-');
@@ -129,10 +185,4 @@ class Cli
             $value,
         ];
     }
-
-    // public static function ask($text, $variants = ['Y', 'n']) 
-    // {
-    //     echo self::colorizeLine($text . ' {yellow}[' . implode('/', $variants) . ']');
-    //     return rtrim(fgets(STDIN), "\n");
-    // }
 }
