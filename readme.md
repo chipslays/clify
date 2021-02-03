@@ -1,4 +1,4 @@
-# WIP: Clify
+# WIP: 📟 Clify
 
 Developing CLI applications in PHP.
 
