@@ -102,10 +102,10 @@ class Cli
      * @param array $variants
      * @return string
      */
-    public static function ask($text, $variants = ['Y', 'n']) 
+    public static function ask($text, $variants = ['y', 'N']) 
     {
         echo self::colorizeLine($text . ' {yellow}[' . implode('/', $variants) . ']{reset}: ');
-        return rtrim(fgets(STDIN), "\n");
+        return trim(fgets(STDIN));
     }
 
     /**
