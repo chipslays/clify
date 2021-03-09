@@ -2,6 +2,8 @@
 
 namespace Clify;
 
+use Chipslays\Collection\Collection;
+
 class Cli
 {
     private $args = [];
@@ -10,7 +12,7 @@ class Cli
 
     public function __construct(array $arguments = null) 
     {
-        $this->args = self::parse($arguments);
+        $this->args = new Collection(self::parse($arguments));
     }
 
     /**
@@ -21,6 +23,11 @@ class Cli
     public function getArgs() 
     {
         return $this->args;
+    }
+
+    public function get($key, $default = null) 
+    {
+        return $this->args->get($key, $default);
     }
 
     /**
