@@ -22,7 +22,7 @@ require 'vendor/autoload.php';
 
 $cli = new Cli;
 
-print_r($cli->getArgs());
+print_r($cli->getArgs()->toArray());
 ```
 
 Run  `app` file in Terminal:
@@ -42,6 +42,20 @@ Array
     [some] => spaces here
     [lonely] => 1
 )
+```
+
+```php
+use Clify\Cli;
+
+require 'vendor/autoload.php';
+
+out('text');
+error('text');
+success('text');
+info('text');
+warning('text');
+
+$cli->get('some_arg', 'default value');
 ```
 
 Terminal output (with new line):
